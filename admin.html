@@ -1,0 +1,503 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONE DAY ASBL - Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #10b981;
+      --secondary: #16a34a;
+      --danger: #dc2626;
+      --border: #e5e7eb;
+      --shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+    }
+
+    .hero {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-top h1 {
+      font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+      line-height: 1.05;
+    }
+
+    .hero-top button,
+    .hero-top .button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.95rem 1.4rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .button-secondary {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .button-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      padding: 1.5rem;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-value {
+      font-size: clamp(2rem, 2.5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .table-card {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 1rem 1.15rem;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    thead {
+      background: #f3f4f6;
+    }
+
+    th {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    tr {
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .badge.success {
+      background: #ecfdf5;
+      color: #166534;
+    }
+
+    .badge.pending {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .validate-button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 1rem;
+      background: var(--secondary);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .validate-button:hover {
+      background: #15803d;
+    }
+
+    .input-wrapper {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: #f8fafc;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+    }
+
+    .message {
+      color: var(--danger);
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .login-card {
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card hero">
+      <div class="hero-top">
+        <div>
+          <p style="font-size:0.85rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--primary); font-weight:700;">Administration</p>
+          <h1>Dashboard Administrateur</h1>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+          <a href="index.html#donation" class="button button-secondary">Retour au site</a>
+          <button id="adminLogoutButton" class="button button-danger">Quitter l'admin</button>
+        </div>
+      </div>
+
+      <section id="adminLoginSection" class="login-card" style="margin-top:1.5rem;">
+        <div style="background:#ecfdf5; border-radius:28px; padding:1.5rem; display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+          <div style="display:grid; place-items:center; width:54px; height:54px; border-radius:18px; background:var(--primary); color:white;"><i data-lucide="lock" style="width:24px; height:24px;"></i></div>
+          <div>
+            <p style="font-size:0.85rem; letter-spacing:0.2em; text-transform:uppercase; color:#047857; font-weight:700;">Accès sécurisé</p>
+            <h2 style="margin-top:0.4rem; font-size:1.7rem;">Connexion administrateur</h2>
+          </div>
+        </div>
+        <div class="card">
+          <div class="input-wrapper">
+            <label style="font-weight:700; color:#374151;">Mot de passe</label>
+            <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Entrez le mot de passe" />
+            <p id="adminLoginError" class="message"></p>
+            <button id="adminLoginButton" class="button button-primary" style="width:100%;">Se connecter</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="adminDashboardSection" style="display:none; margin-top:1.5rem;">
+        <div class="grid-3">
+          <article class="stat-card">
+            <p class="stat-label">Total récolté</p>
+            <p id="totalCollected" class="stat-value">0 FC</p>
+          </article>
+          <article class="stat-card">
+            <p class="stat-label">Dons en attente</p>
+            <p id="pendingCount" class="stat-value">0</p>
+          </article>
+          <article class="stat-card">
+            <p class="stat-label">Total donateurs</p>
+            <p id="donorCount" class="stat-value">0</p>
+          </article>
+        </div>
+
+        <div class="card table-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.25rem;">
+            <div>
+              <p style="font-weight:700; font-size:1.05rem; margin-bottom:0.35rem;">Gestion des dons</p>
+              <p style="color:var(--muted);">Dernières contributions triées du plus récent au plus ancien.</p>
+            </div>
+            <button id="refreshDashboardButton" class="button button-secondary">Rafraîchir</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Donateur</th>
+                  <th>Montant</th>
+                  <th>Méthode</th>
+                  <th>Statut</th>
+                  <th>Créé le</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="donationsTable"></tbody>
+            </table>
+          </div>
+          <p id="dashboardInfo" style="margin-top:1rem; color:var(--muted);"></p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://dawwycsdttzpnuakhoiv.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_dK2lFDaZ5yxd60zGRZLlwQ_a_HVEjZK';
+    const ADMIN_PASSWORD = 'oneday99';
+    const ADMIN_SESSION_KEY = 'oneday_admin_session';
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const adminPasswordInput = document.getElementById('adminPassword');
+    const adminLoginButton = document.getElementById('adminLoginButton');
+    const adminLogoutButton = document.getElementById('adminLogoutButton');
+    const refreshDashboardButton = document.getElementById('refreshDashboardButton');
+    const adminLoginSection = document.getElementById('adminLoginSection');
+    const adminDashboardSection = document.getElementById('adminDashboardSection');
+    const adminLoginError = document.getElementById('adminLoginError');
+    const totalCollectedElement = document.getElementById('totalCollected');
+    const pendingCountElement = document.getElementById('pendingCount');
+    const donorCountElement = document.getElementById('donorCount');
+    const donationsTable = document.getElementById('donationsTable');
+    const dashboardInfo = document.getElementById('dashboardInfo');
+
+    function setError(message) {
+      adminLoginError.textContent = message;
+      adminLoginError.style.display = 'block';
+    }
+
+    function clearError() {
+      adminLoginError.textContent = '';
+      adminLoginError.style.display = 'none';
+    }
+
+    function formatCurrency(amount) {
+      const value = Number(amount) || 0;
+      return value.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' FC';
+    }
+
+    function formatDate(value) {
+      if (!value) return '-';
+      const date = new Date(value);
+      return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function showView(isLoggedIn) {
+      if (isLoggedIn) {
+        adminLoginSection.style.display = 'none';
+        adminDashboardSection.style.display = 'block';
+        refreshDashboard();
+      } else {
+        adminLoginSection.style.display = 'block';
+        adminDashboardSection.style.display = 'none';
+        adminPasswordInput.value = '';
+        clearError();
+      }
+    }
+
+    async function fetchDonations() {
+      const { data, error } = await supabaseClient
+        .from('dons')
+        .select('id, nom_donateur, montant, methode_paiement, statut, created_at')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        setError('Impossible de charger les dons : ' + error.message);
+        return [];
+      }
+
+      return data || [];
+    }
+
+    async function refreshDashboard() {
+      donationsTable.innerHTML = '<tr><td colspan="6" style="padding:1.25rem; text-align:center; color:var(--muted);">Chargement des dons...</td></tr>';
+      const donations = await fetchDonations();
+      const validated = donations.filter(item => item.statut === 'validé');
+      const pending = donations.filter(item => item.statut === 'en_attente');
+      const donors = new Set(donations
+        .map(item => (item.nom_donateur || '').trim().toLowerCase())
+        .filter(Boolean));
+
+      totalCollectedElement.textContent = formatCurrency(validated.reduce((sum, item) => sum + Number(item.montant || 0), 0));
+      pendingCountElement.textContent = pending.length;
+      donorCountElement.textContent = donors.size;
+      dashboardInfo.textContent = `${donations.length} dons chargés`;
+
+      if (!donations.length) {
+        donationsTable.innerHTML = '<tr><td colspan="6" style="padding:1.25rem; text-align:center; color:var(--muted);">Aucun don trouvé.</td></tr>';
+        return;
+      }
+
+      donationsTable.innerHTML = donations.map(donation => {
+        const statusStyles = donation.statut === 'validé'
+          ? 'background:#ecfdf5; color:#166534;'
+          : 'background:#ffedd5; color:#c2410c;';
+        return `
+          <tr>
+            <td style="padding:1rem; color:var(--text);">${donation.nom_donateur || '-'}</td>
+            <td style="padding:1rem; color:var(--text);">${formatCurrency(donation.montant)}</td>
+            <td style="padding:1rem; color:var(--text);">${donation.methode_paiement || '-'}</td>
+            <td style="padding:1rem;"><span class="badge ${donation.statut === 'validé' ? 'success' : 'pending'}" style="${statusStyles};">${donation.statut === 'validé' ? 'Validé' : 'En attente'}</span></td>
+            <td style="padding:1rem; color:var(--muted);">${formatDate(donation.created_at)}</td>
+            <td style="padding:1rem; color:var(--text);">
+              ${donation.statut === 'en_attente'
+                ? `<button class="validate-button" data-id="${donation.id}">Valider</button>`
+                : '<span style="color:var(--muted);">Aucun</span>'}
+            </td>
+          </tr>`;
+      }).join('');
+
+      if (window.lucide) {
+        lucide.replace();
+      }
+
+      donationsTable.querySelectorAll('.validate-button').forEach(button => {
+        button.addEventListener('click', async () => {
+          const donationId = button.dataset.id;
+          button.disabled = true;
+          button.textContent = 'Validation...';
+
+          const { error } = await supabaseClient
+            .from('dons')
+            .update({ statut: 'validé' })
+            .eq('id', donationId);
+
+          if (error) {
+            setError('Erreur de validation : ' + error.message);
+            button.disabled = false;
+            button.textContent = 'Valider';
+            return;
+          }
+
+          await refreshDashboard();
+        });
+      });
+    }
+
+    function handleLogin() {
+      clearError();
+      const password = adminPasswordInput.value.trim();
+      if (password !== ADMIN_PASSWORD) {
+        setError('Mot de passe incorrect.');
+        return;
+      }
+
+      localStorage.setItem(ADMIN_SESSION_KEY, 'true');
+      showView(true);
+    }
+
+    function handleLogout() {
+      localStorage.removeItem(ADMIN_SESSION_KEY);
+      showView(false);
+    }
+
+    adminLoginButton.addEventListener('click', handleLogin);
+    adminPasswordInput.addEventListener('keyup', event => {
+      if (event.key === 'Enter') {
+        handleLogin();
+      }
+    });
+    adminLogoutButton.addEventListener('click', handleLogout);
+    refreshDashboardButton.addEventListener('click', refreshDashboard);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.replace();
+      }
+      showView(localStorage.getItem(ADMIN_SESSION_KEY) === 'true');
+    });
+  </script>
+</body>
+</html>

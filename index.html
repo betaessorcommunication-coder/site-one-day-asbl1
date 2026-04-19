@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ONE DAY ASBL - Conscience, Travail et Développement" />
+    <meta name="theme-color" content="#047857" />
+    <title>ONE DAY ASBL - Conscience · Travail · Développement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#ecfdf5',
+                100: '#d1fae5',
+                200: '#a7f3d0',
+                300: '#6ee7b7',
+                400: '#34d399',
+                500: '#10b981',
+                600: '#059669',
+                700: '#047857',
+                800: '#065f46',
+                900: '#064e3b'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html { scroll-behavior: smooth; }
+      .slide { transition: opacity 1s ease-in-out; }
+      .slide.active { opacity: 1 !important; }
+      .dot.active { background-color: white; opacity: 1; }
+      .modal-backdrop { background-color: rgba(0, 0, 0, 0.5); }
+      @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      .animate-slideIn { animation: slideIn 0.3s ease-out; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+  </head>
+  <body class="bg-slate-100 text-slate-900 font-sans antialiased">
+    <div class="min-h-screen bg-white text-slate-900">
+      <header class="fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl shadow-sm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <a href="#home" class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-3xl bg-white shadow-lg shadow-brand-600/20 overflow-hidden">
+              <img src="../photo site/photo fond/ONE DAYS LOGO UTILISABLE.png" alt="ONE DAY ASBL logo" class="h-full w-full object-contain" />
+            </div>
+            <div class="hidden sm:block">
+              <p class="text-base font-semibold text-slate-900">ONE DAY ASBL</p>
+              <p class="text-xs uppercase tracking-[0.24em] text-brand-700">Conscience · Travail · Développement</p>
+            </div>
+          </a>
+          <nav class="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
+            <a href="#home" class="hover:text-brand-700">Accueil</a>
+            <a href="#campaigns" class="hover:text-brand-700">Campagnes</a>
+            <a href="#actions" class="hover:text-brand-700">Actions</a>
+            <a href="#about" class="hover:text-brand-700">À Propos</a>
+            <a href="admin.html" class="hover:text-brand-700">Admin</a>
+          </nav>
+          <div class="flex items-center gap-3">
+            <a href="#donation" onclick="toggleModal(); return false;" class="hidden rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white shadow-xl shadow-brand-600/20 transition hover:bg-brand-700 md:inline-flex">Faire un Don</a>
+            <button id="mobileMenuButton" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:bg-slate-100 md:hidden">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+          </div>
+        </div>
+        <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white/95 px-4 py-4 md:hidden">
+          <div class="space-y-3 text-sm font-medium text-slate-700">
+            <a href="#home" class="block hover:text-brand-700">Accueil</a>
+            <a href="#campaigns" class="block hover:text-brand-700">Campagnes</a>
+            <a href="#actions" class="block hover:text-brand-700">Actions</a>
+            <a href="#about" class="block hover:text-brand-700">À Propos</a>
+            <a href="admin.html" class="block hover:text-brand-700">Admin</a>
+            <a href="#donation" onclick="toggleModal(); return false;" class="block rounded-full bg-brand-600 px-5 py-3 text-center text-white hover:bg-brand-700">Faire un Don</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="pt-[5.5rem]">
+        <section id="home" class="relative min-h-[90vh] overflow-hidden bg-slate-900">
+          <div class="absolute inset-0">
+            <div class="slide active absolute inset-0 opacity-100 transition-opacity duration-1000">
+              <img src="../photo site/photo fond/IMG-20260118-WA0021.jpg" alt="Photo 1" class="h-full w-full object-cover" />
+            </div>
+            <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+              <img src="../photo site/photo fond/IMG-20260118-WA0022.jpg" alt="Photo 2" class="h-full w-full object-cover" />
+            </div>
+            <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+              <img src="../photo site/photo fond/IMG-20260120-WA0020.jpg" alt="Photo 3" class="h-full w-full object-cover" />
+            </div>
+            <div class="absolute inset-0 bg-slate-950/70"></div>
+          </div>
+          <div class="relative mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center px-4 text-center text-white sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-3xl space-y-6">
+              <p class="text-sm uppercase tracking-[0.3em] text-emerald-300">Conscience · Travail · Développement</p>
+              <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">ONE DAY ASBL</h1>
+              <p class="text-base leading-8 text-slate-200 sm:text-lg">Soutenez des projets d'impact en agriculture, santé, éducation et sport pour un Congo plus fort.</p>
+              <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <a href="#campaigns" class="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] shadow-xl shadow-green-600/30 transition-all duration-200 hover:scale-105 hover:shadow-2xl rounded-full">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                  Faire un Don Maintenant
+                </a>
+                <a href="#about" class="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-white/20">En savoir plus</a>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-x-0 bottom-6 flex items-center justify-center gap-3">
+            <button id="prevSlide" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-lg shadow-slate-950/20 transition hover:bg-white/30">‹</button>
+            <div class="flex items-center gap-3">
+              <button class="dot w-3 h-3 rounded-full bg-white"></button>
+              <button class="dot w-3 h-3 rounded-full bg-white/50"></button>
+              <button class="dot w-3 h-3 rounded-full bg-white/50"></button>
+            </div>
+            <button id="nextSlide" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-lg shadow-slate-950/20 transition hover:bg-white/30">›</button>
+          </div>
+        </section>
+
+        <section id="campaigns" class="bg-slate-50 py-20">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600">Campagnes</p>
+              <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Soutenez nos initiatives prioritaires</h2>
+              <p class="mt-4 max-w-2xl mx-auto text-slate-600">Nos projets visent à renforcer l'agriculture, la santé, l'éducation et le sport sur le terrain.</p>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6 grid grid-cols-2 gap-3">
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo campagne/african-children-enjoying-life.jpg" alt="Agriculture 1" />
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo campagne/african-children-enjoying-life (1).jpg" alt="Agriculture 2" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Agriculture</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Renaissance Agricole</h3>
+                <p class="mt-4 text-slate-600">Former les agriculteurs aux techniques durables pour des cultures plus résilientes.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:65%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>65 % atteint</span>
+                  <span>234 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-between">
+                  <div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">124</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">28</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">45</span>
+                    </button>
+                  </div>
+                    <button onclick="toggleModal();" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6">
+                  <img class="h-48 w-full rounded-2xl object-cover" src="../photo site/photo campagne/african-children-enjoying-life.jpg" alt="Santé" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Santé</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Santé Pour Tous</h3>
+                <p class="mt-4 text-slate-600">Soutenir des cliniques mobiles pour des soins accessibles.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:48%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>48 % atteint</span>
+                  <span>456 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-between">
+                  <div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">92</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">18</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">32</span>
+                    </button>
+                  </div>
+                  <button onclick="toggleModal();" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6">
+                  <img class="h-48 w-full rounded-2xl object-cover" src="../photo site/photo campagne/african-children-enjoying-life (1).jpg" alt="Éducation" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Éducation</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Éducation de Qualité</h3>
+                <p class="mt-4 text-slate-600">Donner les moyens aux enfants d'apprendre et de réussir.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:72%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>72 % atteint</span>
+                  <span>678 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-between">
+                  <div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">156</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">42</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">67</span>
+                    </button>
+                  </div>
+                  <button onclick="toggleModal();" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6 grid grid-cols-2 gap-3">
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260118-WA0021.jpg" alt="Sport 1" />
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260118-WA0022.jpg" alt="Sport 2" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Sport</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Talents du Congo</h3>
+                <p class="mt-4 text-slate-600">Éveiller et développer les talents sportifs des jeunes Congolais.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:54%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>54 % atteint</span>
+                  <span>389 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-between">
+                  <div class="flex items-center gap-4">
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">110</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">25</span>
+                    </button>
+                    <button class="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                      </svg>
+                      <span class="text-sm font-medium">52</span>
+                    </button>
+                  </div>
+                  <button onclick="toggleModal();" class="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="gallery" class="py-20 bg-slate-50">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600">Galerie</p>
+              <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Nos Actions en Images</h2>
+              <p class="mt-4 max-w-2xl mx-auto text-slate-600">Découvrez nos projets et initiatives à travers ces moments capturés sur le terrain.</p>
+            </div>
+            <div class="relative overflow-hidden rounded-[32px] bg-white shadow-xl shadow-slate-900/5">
+              <div class="gallery-slider relative h-[28rem] lg:h-[34rem]">
+                <div class="gallery-slide absolute inset-0 opacity-100 transition-opacity duration-700">
+                  <img class="h-full w-full object-cover" src="../photo site/photo fond/IMG-20260120-WA0020.jpg" alt="Action 1" />
+                </div>
+                <div class="gallery-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                  <img class="h-full w-full object-cover" src="../photo site/photo campagne/african-children-enjoying-life.jpg" alt="Action 2" />
+                </div>
+                <div class="gallery-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                  <img class="h-full w-full object-cover" src="../photo site/photo campagne/african-children-enjoying-life (1).jpg" alt="Action 3" />
+                </div>
+                <div class="gallery-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                  <img class="h-full w-full object-cover" src="../photo site/photo fond/IMG-20260118-WA0022.jpg" alt="Action 4" />
+                </div>
+                <div class="gallery-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                  <img class="h-full w-full object-cover" src="../photo site/photo fond/IMG-20260118-WA0021.jpg" alt="Action 5" />
+                </div>
+                <div class="gallery-slide absolute inset-0 opacity-0 transition-opacity duration-700 bg-slate-950">
+                  <div class="absolute inset-0 flex items-center justify-center p-6">
+                    <div class="relative h-full w-full overflow-hidden rounded-[32px] bg-black shadow-2xl shadow-black/20">
+                      <video id="galleryVideo" controls class="h-full w-full object-cover bg-black" poster="../photo site/photo fond/IMG-20260118-WA0021.jpg">
+                        <source src="../photo site/photo campagne/tiktok%20reel%20one%20day.mp4" type="video/mp4" />
+                        Votre navigateur ne supporte pas la vidéo.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute inset-x-0 top-1/2 flex items-center justify-between px-4 sm:px-6">
+                <button id="galleryPrev" class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-slate-900 shadow-lg shadow-slate-900/10 transition hover:bg-white">
+                  ‹
+                </button>
+                <button id="galleryNext" class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-slate-900 shadow-lg shadow-slate-900/10 transition hover:bg-white">
+                  ›
+                </button>
+              </div>
+              <div class="absolute inset-x-0 bottom-4 flex items-center justify-center gap-2">
+                <button class="gallery-dot h-3 w-3 rounded-full bg-slate-200"></button>
+                <button class="gallery-dot h-3 w-3 rounded-full bg-slate-200/70"></button>
+                <button class="gallery-dot h-3 w-3 rounded-full bg-slate-200/70"></button>
+                <button class="gallery-dot h-3 w-3 rounded-full bg-slate-200/70"></button>
+                <button class="gallery-dot h-3 w-3 rounded-full bg-slate-200/70"></button>
+                <button class="gallery-dot h-3 w-3 rounded-full bg-slate-200/70"></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="actions" class="py-20">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600">Domaines d'Action</p>
+              <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Nos priorités pour un impact durable</h2>
+              <p class="mt-4 max-w-2xl mx-auto text-slate-600">Cinq domaines ciblés pour renforcer les communautés du Congo avec rigueur et professionnalisme.</p>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50 text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8" aria-hidden="true">
+                    <path d="M12 21v-7.5" />
+                    <path d="M12 13.5c0-4.14 3-5.25 4.5-6.75C16.5 4.5 14.5 3 12 3s-4.5 1.5-4.5 3.75C9 8.25 12 9.36 12 13.5z" />
+                    <path d="M8.25 7.5c.75-.75 1.5-1.5 3.75-1.5" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Agriculture & Élevage</h3>
+                <p class="mt-4 text-slate-600">Renforcer les filières locales avec une approche agroécologique et durable.</p>
+              </div>
+
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50 text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8" aria-hidden="true">
+                    <path d="M6 7.5h12" />
+                    <path d="M12 3.75v7.5" />
+                    <path d="M5.25 10.5c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5V5.25a1.5 1.5 0 0 0-1.5-1.5h-10.5a1.5 1.5 0 0 0-1.5 1.5V10.5z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Santé & Social</h3>
+                <p class="mt-4 text-slate-600">Déployer des solutions de santé et de soutien social accessibles à tous.</p>
+              </div>
+
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50 text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8" aria-hidden="true">
+                    <path d="M3.75 6.75v10.5c0 .414.336.75.75.75h15c.414 0 .75-.336.75-.75V6.75" />
+                    <path d="M5.25 6.75c0-1.24 1.01-2.25 2.25-2.25h9c1.24 0 2.25 1.01 2.25 2.25" />
+                    <path d="M12 8.25v7.5" />
+                    <path d="M8.25 12h7.5" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Éducation & Jeunesse</h3>
+                <p class="mt-4 text-slate-600">Favoriser l'apprentissage et l'émancipation des jeunes talents congolais.</p>
+              </div>
+
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50 text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8" aria-hidden="true">
+                    <path d="M12 21c4.42-4.5 7.5-8.74 7.5-11.25A7.5 7.5 0 0 0 6.75 6.75" />
+                    <path d="M4.5 10.5C4.5 6.96 7.46 4 11.99 4c4.21 0 7.35 3.89 7.35 8.65 0 2.48-3.05 6.7-7.35 10.6" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Assainissement</h3>
+                <p class="mt-4 text-slate-600">Garantir l'accès à l'eau propre et promouvoir des infrastructures durables.</p>
+              </div>
+
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50 text-green-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8" aria-hidden="true">
+                    <path d="M8.25 7.5h7.5v3.75a3.75 3.75 0 0 1-7.5 0V7.5z" />
+                    <path d="M6 7.5H4.5v3.75A5.25 5.25 0 0 0 9.75 16.5h4.5A5.25 5.25 0 0 0 19.5 11.25V7.5H18" />
+                    <path d="M9.75 19.5h4.5" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Sport & Formation</h3>
+                <p class="mt-4 text-slate-600">Encourager l'éducation sportive et la formation pour des trajectoires durables.</p>
+              </div>
+            </div>
+          </div>
+        <section id="about" class="bg-slate-950 text-slate-100 py-20">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-300">À propos</p>
+                <h2 class="mt-4 text-4xl font-bold text-white sm:text-5xl">ONE DAY ASBL, acteur du changement durable</h2>
+                <p class="mt-6 max-w-3xl text-slate-300 leading-8">Nous soutenons les communautés congolaises avec des projets structurants en agriculture, santé, éducation et sport.</p>
+                <ul class="mt-8 space-y-4 text-slate-300">
+                  <li class="flex items-start gap-3"><span class="mt-1 text-brand-500">✔</span> Transparence financière</li>
+                  <li class="flex items-start gap-3"><span class="mt-1 text-brand-500">✔</span> Action locale et résultats mesurables</li>
+                  <li class="flex items-start gap-3"><span class="mt-1 text-brand-500">✔</span> Engagement communautaire renforcé</li>
+                </ul>
+              </div>
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div class="rounded-[32px] bg-slate-900/80 p-6 shadow-2xl shadow-slate-900/20">
+                  <h3 class="text-xl font-semibold text-white">Collège des Fondateurs</h3>
+                  <p class="mt-4 text-slate-400">Une gouvernance basée sur l'expérience et l'engagement.</p>
+                </div>
+                <div class="rounded-[32px] bg-slate-900/80 p-6 shadow-2xl shadow-slate-900/20">
+                  <h3 class="text-xl font-semibold text-white">Conseil d'Administration</h3>
+                  <p class="mt-4 text-slate-400">Piloté par M. KABAMBA Christian pour un développement responsable.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="bg-slate-950 text-slate-400">
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-3">
+          <div>
+            <p class="text-brand-500 font-semibold uppercase tracking-[0.3em] mb-4">ONE DAY ASBL</p>
+            <p>Platforme de collecte de fonds pour le bien-être du peuple congolais.</p>
+            <p class="mt-4 text-slate-400">© 2026 ONE DAY ASBL. Tous droits réservés.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-white mb-4">Navigation</h3>
+            <ul class="space-y-3">
+              <li><a href="#home" class="hover:text-white">Accueil</a></li>
+              <li><a href="#campaigns" class="hover:text-white">Campagnes</a></li>
+              <li><a href="#actions" class="hover:text-white">Actions</a></li>
+              <li><a href="#about" class="hover:text-white">À Propos</a></li>
+              <li><a href="admin.html" class="hover:text-white">Admin</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-white mb-4">Contact</h3>
+            <p>Kinshasa, République Démocratique du Congo</p>
+            <p class="mt-2">info@onedayasbl.org</p>
+            <p class="mt-2">+243 XXX XXX XXX</p>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Modal de don -->
+      <div id="donationModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm">
+        <div class="flex min-h-screen items-center justify-center px-4 py-10">
+          <div class="w-full max-w-md rounded-[36px] bg-white shadow-2xl shadow-slate-900/20 ring-1 ring-slate-200">
+            <div class="border-b border-slate-200 px-6 py-5">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-[#0070ba] to-[#003087] text-white shadow-lg shadow-slate-900/20">
+                    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm0 0c0 3.866 3.134 7 7 7s7-3.134 7-7-3.134-7-7-7-7 3.134-7 7z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">OneDay Pay</p>
+                    <div class="flex items-center gap-1 text-2xl font-bold">
+                      <span class="text-[#0070ba]">OneDay</span>
+                      <span class="text-[#003087]">Pay</span>
+                    </div>
+                  </div>
+                </div>
+                <button id="closeModal" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <p class="mt-4 text-sm text-slate-600">Paiement sécurisé, professionnel et prêt pour votre don.</p>
+            </div>
+
+            <form id="donationForm" class="space-y-6 px-6 py-6" onsubmit="event.preventDefault(); envoyerDonVersSupabase();">
+              <div class="space-y-4">
+                <div>
+                  <label for="donorName" class="block text-sm font-medium text-slate-700">Nom complet <span class="text-slate-400">(optionnel)</span></label>
+                  <input id="donorName" name="donorName" type="text" placeholder="Jean Dupont" class="mt-2 block w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#0070ba] focus:ring-2 focus:ring-[#0070ba]/10" />
+                </div>
+                <div>
+                  <label for="donorEmail" class="block text-sm font-medium text-slate-700">Email <span class="text-slate-400">(optionnel)</span></label>
+                  <input id="donorEmail" name="donorEmail" type="email" placeholder="jean@example.com" class="mt-2 block w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#0070ba] focus:ring-2 focus:ring-[#0070ba]/10" />
+                </div>
+                <div>
+                  <label for="donorPhone" class="block text-sm font-medium text-slate-700">Téléphone <span class="text-slate-400">(optionnel)</span></label>
+                  <input id="donorPhone" name="donorPhone" type="tel" placeholder="+243 81 234 5678" class="mt-2 block w-full rounded-3xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#0070ba] focus:ring-2 focus:ring-[#0070ba]/10" />
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">Modes de paiement</p>
+                    <p class="text-xs text-slate-500">Sélectionnez votre méthode préférée.</p>
+                  </div>
+                </div>
+                <div class="grid gap-3">
+                  <button type="button" class="payment-option rounded-3xl border border-slate-200 bg-white p-4 text-left transition hover:border-slate-300" data-method="mobile" onclick="selectPaymentMethod('mobile')">
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-sm font-semibold text-slate-900">Mobile Money</p>
+                        <p class="mt-1 text-sm text-slate-500">M-Pesa, Orange Money et Airtel Money</p>
+                      </div>
+                      <div class="flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 bg-white"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      <span class="rounded-full bg-[#007b3f] px-3 py-1 text-xs font-semibold text-white">M-Pesa</span>
+                      <span class="rounded-full bg-[#ff6f00] px-3 py-1 text-xs font-semibold text-white">Orange Money</span>
+                      <span class="rounded-full bg-[#e30613] px-3 py-1 text-xs font-semibold text-white">Airtel Money</span>
+                    </div>
+                  </button>
+                  <button type="button" class="payment-option rounded-3xl border border-slate-200 bg-white p-4 text-left transition hover:border-slate-300" data-method="card" onclick="selectPaymentMethod('card')">
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-sm font-semibold text-slate-900">Carte Bancaire</p>
+                        <p class="mt-1 text-sm text-slate-500">Visa et MasterCard</p>
+                      </div>
+                      <div class="flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 bg-white"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      <span class="rounded-full bg-[#1a1f71] px-3 py-1 text-xs font-semibold text-white">Visa</span>
+                      <span class="rounded-full bg-[#eb001b] px-3 py-1 text-xs font-semibold text-white">MasterCard</span>
+                    </div>
+                  </button>
+                  <button type="button" class="payment-option rounded-3xl border border-slate-200 bg-white p-4 text-left transition hover:border-slate-300" data-method="virement" onclick="selectPaymentMethod('virement')">
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <p class="text-sm font-semibold text-slate-900">Virement</p>
+                        <p class="mt-1 text-sm text-slate-500">Revolut + TMB</p>
+                      </div>
+                      <div class="flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 bg-white"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      <span class="rounded-full bg-[#2d2d2d] px-3 py-1 text-xs font-semibold text-white">Revolut</span>
+                      <span class="rounded-full bg-[#003087] px-3 py-1 text-xs font-semibold text-white">TMB</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div id="bankDetailsPanel" class="hidden rounded-3xl border border-blue-200 bg-blue-50 p-5 text-sm text-slate-900">
+                <p class="text-sm font-semibold text-slate-900">Coordonnées bancaires</p>
+                <div class="mt-4 space-y-3">
+                  <div class="rounded-3xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+                    <div class="flex items-center justify-between gap-4">
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.24em] text-slate-500">Bénéficiaire</p>
+                        <p class="font-semibold text-slate-900">Christian Kabamba Ebondo</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 grid gap-3">
+                      <div class="flex items-center justify-between gap-3">
+                        <span class="text-slate-600">Compte TMB</span>
+                        <span class="font-medium text-slate-900">00017-11020-7305157000-03</span>
+                      </div>
+                      <div class="flex items-center justify-between gap-3">
+                        <span class="text-slate-600">IBAN Revolut</span>
+                        <span id="ibanValue" class="font-mono text-slate-900">BE34 6505 6439 1190</span>
+                      </div>
+                      <div class="flex items-center justify-between gap-3">
+                        <span class="text-slate-600">BIC/SWIFT</span>
+                        <span class="font-medium text-slate-900">REVOBEB2</span>
+                      </div>
+                    </div>
+                    <button id="copyIbanButton" type="button" onclick="copyIban()" class="mt-4 inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-slate-800">Copier</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div class="flex flex-col gap-3 border-t border-slate-200 px-6 py-4 sm:flex-row">
+              <button type="button" id="closeModalButton" class="flex-1 rounded-3xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">Annuler</button>
+              <button type="submit" form="donationForm" class="flex-1 rounded-3xl bg-gradient-to-r from-[#0070ba] to-[#003087] px-4 py-3 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 transition hover:opacity-95">Confirmer le don</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      let activeSlide = 0;
+
+      function showSlide(index) {
+        slides.forEach((slide, idx) => {
+          slide.classList.toggle('opacity-100', idx === index);
+          slide.classList.toggle('opacity-0', idx !== index);
+        });
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('bg-white', idx === index);
+          dot.classList.toggle('bg-white/50', idx !== index);
+          dot.classList.toggle('w-8', idx === index);
+          dot.classList.toggle('w-3', idx !== index);
+        });
+        activeSlide = index;
+      }
+
+      function nextSlide() {
+        showSlide((activeSlide + 1) % slides.length);
+      }
+
+      document.getElementById('nextSlide').addEventListener('click', nextSlide);
+      document.getElementById('prevSlide').addEventListener('click', () => showSlide((activeSlide - 1 + slides.length) % slides.length));
+      dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
+      setInterval(nextSlide, 6000);
+
+      const gallerySlides = document.querySelectorAll('.gallery-slide');
+      const galleryDots = document.querySelectorAll('.gallery-dot');
+      const galleryVideo = document.getElementById('galleryVideo');
+      let activeGallerySlide = 0;
+      let galleryTimer;
+
+      function isGalleryVideoSlide(index) {
+        return gallerySlides[index] && gallerySlides[index].querySelector('video') !== null;
+      }
+
+      function showGallerySlide(index) {
+        gallerySlides.forEach((slide, idx) => {
+          slide.classList.toggle('opacity-100', idx === index);
+          slide.classList.toggle('opacity-0', idx !== index);
+        });
+        galleryDots.forEach((dot, idx) => {
+          dot.classList.toggle('bg-slate-900', idx === index);
+          dot.classList.toggle('bg-slate-200/70', idx !== index);
+          dot.classList.toggle('w-8', idx === index);
+          dot.classList.toggle('w-3', idx !== index);
+        });
+        activeGallerySlide = index;
+
+        if (galleryVideo) {
+          if (isGalleryVideoSlide(index)) {
+            galleryVideo.currentTime = 0;
+            galleryVideo.play().catch(() => {});
+          } else {
+            galleryVideo.pause();
+            galleryVideo.currentTime = 0;
+          }
+        }
+      }
+
+      function nextGallerySlide() {
+        if (isGalleryVideoSlide(activeGallerySlide) && galleryVideo && !galleryVideo.ended) {
+          return;
+        }
+        showGallerySlide((activeGallerySlide + 1) % gallerySlides.length);
+      }
+
+      function prevGallerySlide() {
+        if (isGalleryVideoSlide(activeGallerySlide) && galleryVideo && !galleryVideo.ended) {
+          galleryVideo.pause();
+          galleryVideo.currentTime = 0;
+        }
+        showGallerySlide((activeGallerySlide - 1 + gallerySlides.length) % gallerySlides.length);
+      }
+
+      document.getElementById('galleryNext').addEventListener('click', nextGallerySlide);
+      document.getElementById('galleryPrev').addEventListener('click', prevGallerySlide);
+      galleryDots.forEach((dot, index) => dot.addEventListener('click', () => showGallerySlide(index)));
+      showGallerySlide(0);
+
+      galleryTimer = setInterval(() => {
+        if (!isGalleryVideoSlide(activeGallerySlide)) {
+          nextGallerySlide();
+        }
+      }, 7000);
+
+      if (galleryVideo) {
+        galleryVideo.addEventListener('ended', nextGallerySlide);
+      }
+
+      document.getElementById('mobileMenuButton').addEventListener('click', () => {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+      });
+
+      // Like button functionality
+      document.querySelectorAll('button svg').forEach(svg => {
+        if (svg.parentElement.querySelector('path').getAttribute('d').includes('4.318 6.318')) {
+          svg.parentElement.addEventListener('click', function() {
+            const path = this.querySelector('path');
+            const isLiked = path.getAttribute('fill') === 'currentColor';
+            if (isLiked) {
+              path.setAttribute('fill', 'none');
+              path.setAttribute('stroke', 'currentColor');
+              this.classList.remove('text-red-500');
+              this.classList.add('text-gray-600', 'hover:text-green-600');
+            } else {
+              path.setAttribute('fill', 'currentColor');
+              path.setAttribute('stroke', 'none');
+              this.classList.remove('text-gray-600', 'hover:text-green-600');
+              this.classList.add('text-red-500');
+            }
+          });
+        }
+      });
+
+      // Initialisation du client Supabase
+      const _supabase = supabase.createClient('https://dawwycsdttzpnuakhoiv.supabase.co', 'sb_publishable_dK2lFDaZ5yxd60zGRZLlwQ_a_HVEjZK');
+      const ADMIN_PASSWORD = 'oneday99';
+      const ADMIN_SESSION_KEY = 'oneday_admin_session';
+      const adminPasswordInput = document.getElementById('adminPassword');
+      const adminLoginButton = document.getElementById('adminLoginButton');
+      const adminLoginError = document.getElementById('adminLoginError');
+      const adminLoginPanel = document.getElementById('adminLoginPanel');
+      const adminDashboardPanel = document.getElementById('adminDashboardPanel');
+      const adminLogoutButton = document.getElementById('adminLogoutButton');
+      const refreshDashboardButton = document.getElementById('refreshDashboardButton');
+      const totalCollectedElement = document.getElementById('totalCollected');
+      const pendingCountElement = document.getElementById('pendingCount');
+      const donorCountElement = document.getElementById('donorCount');
+      const donationsTable = document.getElementById('donationsTable');
+      const dashboardInfo = document.getElementById('dashboardInfo');
+
+      // Fonction pour envoyer un don vers Supabase
+      async function envoyerDonVersSupabase() {
+        const nom = document.getElementById('donorName').value.trim();
+        const email = document.getElementById('donorEmail').value.trim();
+        const telephone = document.getElementById('donorPhone').value.trim();
+
+        try {
+          const { data, error } = await _supabase
+            .from('dons')
+            .insert([
+              {
+                nom: nom || null,
+                email: email || null,
+                telephone: telephone || null,
+                methode: selectedPaymentMethod,
+                statut: 'en_attente'
+              }
+            ]);
+
+          if (error) {
+            throw error;
+          }
+
+          alert('Don envoyé avec succès ! Merci pour votre soutien.');
+          modal.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+          document.getElementById('donationForm').reset();
+          selectPaymentMethod('mobile');
+        } catch (error) {
+          alert('Erreur lors de l\'envoi du don : ' + (error.message || 'Erreur inconnue'));
+        }
+      }
+
+      function showAdminView(isLoggedIn) {
+        if (isLoggedIn) {
+          adminLoginPanel.classList.add('hidden');
+          adminDashboardPanel.classList.remove('hidden');
+          refreshDashboard();
+        } else {
+          adminLoginPanel.classList.remove('hidden');
+          adminDashboardPanel.classList.add('hidden');
+          adminPasswordInput.value = '';
+          adminLoginError.classList.add('hidden');
+        }
+      }
+
+      function formatCurrency(amount) {
+        const value = Number(amount) || 0;
+        return value.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' FC';
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      }
+
+      function displayDashboardError(message) {
+        adminLoginError.textContent = message;
+        adminLoginError.classList.remove('hidden');
+      }
+
+      async function fetchDonations() {
+        const { data, error } = await _supabase
+          .from('dons')
+          .select('id, nom_donateur, montant, methode_paiement, statut, created_at')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          displayDashboardError('Impossible de charger les dons : ' + error.message);
+          return [];
+        }
+
+        return data || [];
+      }
+
+      async function refreshDashboard() {
+        donationsTable.innerHTML = '<tr><td colspan="6" class="px-4 py-6 text-center text-sm text-slate-500">Chargement des dons...</td></tr>';
+        const donations = await fetchDonations();
+        const validated = donations.filter(d => d.statut === 'validé');
+        const pending = donations.filter(d => d.statut === 'en_attente');
+        const donors = new Set(donations
+          .map(d => (d.nom_donateur || '').trim().toLowerCase())
+          .filter(Boolean));
+
+        totalCollectedElement.textContent = formatCurrency(validated.reduce((sum, donation) => sum + Number(donation.montant || 0), 0));
+        pendingCountElement.textContent = pending.length;
+        donorCountElement.textContent = donors.size;
+        dashboardInfo.textContent = `${donations.length} dons chargés`;
+
+        if (donations.length === 0) {
+          donationsTable.innerHTML = '<tr><td colspan="6" class="px-4 py-6 text-center text-sm text-slate-500">Aucun don trouvé.</td></tr>';
+          return;
+        }
+
+        donationsTable.innerHTML = donations.map(donation => {
+          const statusClass = donation.statut === 'validé' ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700';
+          return `
+            <tr>
+              <td class="px-4 py-4 text-sm text-slate-700">${donation.nom_donateur || '-'} </td>
+              <td class="px-4 py-4 text-sm text-slate-700">${formatCurrency(donation.montant)}</td>
+              <td class="px-4 py-4 text-sm text-slate-700">${donation.methode_paiement || '-'}</td>
+              <td class="px-4 py-4">
+                <span class="inline-flex rounded-full px-3 py-1 text-sm font-semibold ${statusClass}">${donation.statut === 'validé' ? 'Validé' : 'En attente'}</span>
+              </td>
+              <td class="px-4 py-4 text-sm text-slate-500">${formatDate(donation.created_at)}</td>
+              <td class="px-4 py-4 text-sm">
+                ${donation.statut === 'en_attente' ? `<button class="validate-button inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2 text-white transition hover:bg-emerald-700" data-id="${donation.id}"><i data-lucide="check" class="h-4 w-4"></i>Valider</button>` : '<span class="text-slate-500">Aucun</span>'}
+              </td>
+            </tr>`;
+        }).join('');
+
+        if (window.lucide) {
+          lucide.replace();
+        }
+
+        donationsTable.querySelectorAll('.validate-button').forEach(button => {
+          button.addEventListener('click', async () => {
+            const donationId = button.dataset.id;
+            button.disabled = true;
+            button.textContent = 'Validation...';
+
+            const { error } = await _supabase
+              .from('dons')
+              .update({ statut: 'validé' })
+              .eq('id', donationId);
+
+            if (error) {
+              displayDashboardError('Erreur de validation : ' + error.message);
+              button.disabled = false;
+              button.textContent = 'Valider';
+              return;
+            }
+
+            refreshDashboard();
+          });
+        });
+      }
+
+      function handleAdminLogin() {
+        const password = adminPasswordInput.value.trim();
+        if (password !== ADMIN_PASSWORD) {
+          displayDashboardError('Mot de passe incorrect.');
+          return;
+        }
+
+        localStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        showAdminView(true);
+      }
+
+      function logoutAdmin() {
+        localStorage.removeItem(ADMIN_SESSION_KEY);
+        showAdminView(false);
+      }
+
+      adminLoginButton.addEventListener('click', handleAdminLogin);
+      adminPasswordInput.addEventListener('keyup', event => {
+        if (event.key === 'Enter') {
+          handleAdminLogin();
+        }
+      });
+      adminLogoutButton.addEventListener('click', logoutAdmin);
+      refreshDashboardButton.addEventListener('click', refreshDashboard);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) {
+          lucide.replace();
+        }
+        showAdminView(localStorage.getItem(ADMIN_SESSION_KEY) === 'true');
+      });
+
+      // Gestion de la modal de don
+      const modal = document.getElementById('donationModal');
+      const closeModalButton = document.getElementById('closeModalButton');
+      const closeModal = document.getElementById('closeModal');
+      const bankDetailsPanel = document.getElementById('bankDetailsPanel');
+      const copyIbanButton = document.getElementById('copyIbanButton');
+      let selectedPaymentMethod = 'mobile';
+
+      function toggleModal() {
+        modal.classList.toggle('hidden');
+        document.body.style.overflow = modal.classList.contains('hidden') ? 'auto' : 'hidden';
+      }
+
+      function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+        document.querySelectorAll('.payment-option').forEach((button) => {
+          const isSelected = button.dataset.method === method;
+          button.classList.toggle('border-slate-900', isSelected);
+          button.classList.toggle('bg-slate-100', isSelected);
+          button.classList.toggle('border-slate-200', !isSelected);
+        });
+        if (bankDetailsPanel) {
+          bankDetailsPanel.classList.toggle('hidden', method !== 'virement');
+        }
+      }
+
+      function copyIban() {
+        const iban = document.getElementById('ibanValue').textContent.trim();
+        navigator.clipboard.writeText(iban).then(() => {
+          copyIbanButton.textContent = 'Copié';
+          setTimeout(() => { copyIbanButton.textContent = 'Copier'; }, 1800);
+        }).catch(() => {
+          alert('Impossible de copier l’IBAN. Veuillez copier manuellement.');
+        });
+      }
+
+      closeModalButton.addEventListener('click', toggleModal);
+      closeModal.addEventListener('click', toggleModal);
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          toggleModal();
+        }
+      });
+
+      selectPaymentMethod('mobile');
+
+      if (window.location.hash === '#donation' || new URLSearchParams(window.location.search).get('don') === '1') {
+        toggleModal();
+      }
+    </script>
+  </body>
+</html>

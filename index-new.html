@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ONE DAY ASBL - Conscience, Travail et Développement" />
+    <meta name="theme-color" content="#047857" />
+    <title>ONE DAY ASBL - Conscience · Travail · Développement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#ecfdf5',
+                100: '#d1fae5',
+                200: '#a7f3d0',
+                300: '#6ee7b7',
+                400: '#34d399',
+                500: '#10b981',
+                600: '#059669',
+                700: '#047857',
+                800: '#065f46',
+                900: '#064e3b'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html { scroll-behavior: smooth; }
+      .slide { transition: opacity 1s ease-in-out; }
+      .slide.active { opacity: 1 !important; }
+      .dot.active { background-color: white; opacity: 1; }
+      .modal-backdrop { background-color: rgba(0, 0, 0, 0.5); }
+      @keyframes slideIn { 
+        from { 
+          transform: translateY(20px); 
+          opacity: 0; 
+        } 
+        to { 
+          transform: translateY(0); 
+          opacity: 1; 
+        } 
+      }
+      .animate-slideIn { animation: slideIn 0.3s ease-out; }
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body class="bg-slate-100 text-slate-900 font-sans antialiased">
+    <div class="min-h-screen bg-white text-slate-900">
+      <!-- HEADER -->
+      <header class="fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl shadow-sm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <a href="#home" class="flex items-center gap-3">
+            <div class="flex h-12 w-12 items-center justify-center rounded-3xl bg-white shadow-lg shadow-brand-600/20 overflow-hidden">
+              <img src="../photo site/photo fond/ONE DAYS LOGO UTILISABLE.png" alt="ONE DAY ASBL logo" class="h-full w-full object-contain" />
+            </div>
+            <div class="hidden sm:block">
+              <p class="text-base font-semibold text-slate-900">ONE DAY ASBL</p>
+              <p class="text-xs uppercase tracking-[0.24em] text-brand-700">Conscience · Travail · Développement</p>
+            </div>
+          </a>
+          <nav class="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
+            <a href="#home" class="hover:text-brand-700">Accueil</a>
+            <a href="#campaigns" class="hover:text-brand-700">Campagnes</a>
+            <a href="#actions" class="hover:text-brand-700">Actions</a>
+            <a href="#about" class="hover:text-brand-700">À Propos</a>
+            <a href="#contact" class="hover:text-brand-700">Contact</a>
+          </nav>
+          <div class="flex items-center gap-3">
+            <button id="openDonationModal" class="hidden rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white shadow-xl shadow-brand-600/20 transition hover:bg-brand-700 md:inline-flex">Faire un Don</button>
+            <button id="mobileMenuButton" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:bg-slate-100 md:hidden">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+          </div>
+        </div>
+        <div id="mobileMenu" class="hidden border-t border-slate-200 bg-white/95 px-4 py-4 md:hidden">
+          <div class="space-y-3 text-sm font-medium text-slate-700">
+            <a href="#home" class="block hover:text-brand-700">Accueil</a>
+            <a href="#campaigns" class="block hover:text-brand-700">Campagnes</a>
+            <a href="#actions" class="block hover:text-brand-700">Actions</a>
+            <a href="#about" class="block hover:text-brand-700">À Propos</a>
+            <a href="#contact" class="block hover:text-brand-700">Contact</a>
+            <button id="mobileOpenDonation" class="block rounded-full bg-brand-600 px-5 py-3 text-center text-white hover:bg-brand-700 w-full">Faire un Don</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="pt-[5.5rem]">
+        <!-- HERO SECTION WITH SLIDER -->
+        <section id="home" class="relative min-h-[90vh] overflow-hidden bg-slate-900">
+          <div class="absolute inset-0">
+            <div class="slide active absolute inset-0 opacity-100">
+              <img src="../photo site/photo fond/IMG-20260118-WA0021.jpg" alt="Photo 1" class="h-full w-full object-cover" />
+            </div>
+            <div class="slide absolute inset-0 opacity-0">
+              <img src="../photo site/photo fond/IMG-20260118-WA0022.jpg" alt="Photo 2" class="h-full w-full object-cover" />
+            </div>
+            <div class="slide absolute inset-0 opacity-0">
+              <img src="../photo site/photo fond/IMG-20260120-WA0020.jpg" alt="Photo 3" class="h-full w-full object-cover" />
+            </div>
+            <div class="absolute inset-0 bg-slate-950/70"></div>
+          </div>
+          <div class="relative mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center px-4 text-center text-white sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-3xl space-y-6">
+              <p class="text-sm uppercase tracking-[0.3em] text-emerald-300">Conscience · Travail · Développement</p>
+              <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">ONE DAY ASBL</h1>
+              <p class="text-base leading-8 text-slate-200 sm:text-lg">Soutenez des projets d'impact en agriculture, santé, éducation et sport pour un Congo plus fort.</p>
+              <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <button id="heroOpenDonation" class="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] shadow-xl shadow-green-600/30 transition-all duration-200 hover:scale-105 hover:shadow-2xl rounded-full">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                  </svg>
+                  Faire un Don Maintenant
+                </button>
+                <a href="#about" class="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-white/20">En savoir plus</a>
+              </div>
+            </div>
+          </div>
+          <!-- Slider Controls -->
+          <div class="absolute inset-x-0 bottom-6 flex items-center justify-center gap-3">
+            <button id="prevSlide" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-lg shadow-slate-950/20 transition hover:bg-white/30">‹</button>
+            <div class="flex items-center gap-3">
+              <button class="dot w-3 h-3 rounded-full bg-white active"></button>
+              <button class="dot w-3 h-3 rounded-full bg-white/50"></button>
+              <button class="dot w-3 h-3 rounded-full bg-white/50"></button>
+            </div>
+            <button id="nextSlide" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-lg shadow-slate-950/20 transition hover:bg-white/30">›</button>
+          </div>
+        </section>
+
+        <!-- CAMPAIGNS SECTION -->
+        <section id="campaigns" class="bg-slate-50 py-20">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600">Campagnes</p>
+              <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Soutenez nos initiatives prioritaires</h2>
+              <p class="mt-4 max-w-2xl mx-auto text-slate-600">Nos projets visent à renforcer l'agriculture, la santé, l'éducation et le sport sur le terrain.</p>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
+              <!-- Campaign Card 1 -->
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6 grid grid-cols-2 gap-3">
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260118-WA0021.jpg" alt="Agriculture 1" />
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260118-WA0022.jpg" alt="Agriculture 2" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Agriculture</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Renaissance Agricole</h3>
+                <p class="mt-4 text-slate-600">Former les agriculteurs aux techniques durables pour des cultures plus résilientes.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:65%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>65 % atteint</span>
+                  <span>234 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-end">
+                  <button class="openDonation inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+
+              <!-- Campaign Card 2 -->
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6">
+                  <img class="h-48 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260120-WA0020.jpg" alt="Santé" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Santé</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Santé Pour Tous</h3>
+                <p class="mt-4 text-slate-600">Soutenir des cliniques mobiles pour des soins accessibles.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:48%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>48 % atteint</span>
+                  <span>456 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-end">
+                  <button class="openDonation inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+
+              <!-- Campaign Card 3 -->
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6">
+                  <img class="h-48 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260118-WA0021.jpg" alt="Éducation" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Éducation</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Éducation de Qualité</h3>
+                <p class="mt-4 text-slate-600">Donner les moyens aux enfants d'apprendre et de réussir.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:72%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>72 % atteint</span>
+                  <span>678 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-end">
+                  <button class="openDonation inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+
+              <!-- Campaign Card 4 -->
+              <article class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5">
+                <div class="mb-6 grid grid-cols-2 gap-3">
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260120-WA0020.jpg" alt="Sport 1" />
+                  <img class="h-28 w-full rounded-2xl object-cover" src="../photo site/photo fond/IMG-20260118-WA0022.jpg" alt="Sport 2" />
+                </div>
+                <span class="inline-flex rounded-full bg-brand-100 px-3 py-1 text-sm font-semibold text-brand-700">Sport</span>
+                <h3 class="mt-5 text-2xl font-semibold text-slate-900">Talents du Congo</h3>
+                <p class="mt-4 text-slate-600">Éveiller et développer les talents sportifs des jeunes Congolais.</p>
+                <div class="mt-6 h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600" style="width:54%"></div>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-sm text-slate-500">
+                  <span>54 % atteint</span>
+                  <span>389 donateurs</span>
+                </div>
+                <div class="mt-6 flex items-center justify-end">
+                  <button class="openDonation inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    DON
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACTIONS SECTION -->
+        <section id="actions" class="py-20">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.3em] text-brand-600">Domaines d'Action</p>
+              <h2 class="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">Nos priorités stratégiques</h2>
+              <p class="mt-4 max-w-2xl mx-auto text-slate-600">Cinq domaines d'excellence pour transformer les communautés du Congo.</p>
+            </div>
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <!-- Action 1 -->
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8" aria-hidden="true">
+                    <path d="M12 2v20M2 12h20M6 6l12 12M18 6L6 18" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Agriculture & Élevage</h3>
+                <p class="mt-4 text-slate-600">Renforcer les filières locales avec une approche agroécologique et durable.</p>
+              </div>
+
+              <!-- Action 2 -->
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M12 2v4M12 18v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h4M18 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Santé & Social</h3>
+                <p class="mt-4 text-slate-600">Déployer des solutions de santé et de soutien social accessibles à tous.</p>
+              </div>
+
+              <!-- Action 3 -->
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H17.5A2.5 2.5 0 0 1 20 19.5v.5a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1-.5-.5v-.5z" />
+                    <path d="M6.5 9a4 4 0 1 0 8 0 4 4 0 0 0-8 0" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Éducation & Jeunesse</h3>
+                <p class="mt-4 text-slate-600">Favoriser l'apprentissage et l'émancipation des jeunes talents congolais.</p>
+              </div>
+
+              <!-- Action 4 -->
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                    <circle cx="12" cy="12" r="2" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Assainissement & Eau</h3>
+                <p class="mt-4 text-slate-600">Garantir l'accès à l'eau propre et promouvoir des infrastructures durables.</p>
+              </div>
+
+              <!-- Action 5 -->
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M6 9c0-1 1-2 2-2h8c1 0 2 1 2 2v8c0 1-1 2-2 2H8c-1 0-2-1-2-2V9z" />
+                    <circle cx="12" cy="13" r="2" fill="#059669" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Sport & Formation</h3>
+                <p class="mt-4 text-slate-600">Encourager l'éducation sportive et la formation pour des trajectoires durables.</p>
+              </div>
+
+              <!-- Action 6 -->
+              <div class="rounded-[28px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5">
+                <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-green-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900">Gouvernance Responsable</h3>
+                <p class="mt-4 text-slate-600">Assurer la transparence et l'implication des communautés dans nos décisions.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="bg-slate-950 text-slate-100 py-20">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-300">À propos de ONE DAY ASBL</p>
+                <h2 class="mt-4 text-4xl font-bold text-white sm:text-5xl">Acteur du changement durable en RDC</h2>
+                <p class="mt-6 text-slate-300 leading-8">ONE DAY ASBL est une organisation engagée auprès des communautés congolaises. Nous soutenons des projets structurants en agriculture, santé, éducation et sport, avec transparence financière et résultats mesurables.</p>
+                <ul class="mt-8 space-y-4 text-slate-300">
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 text-brand-500">✔</span>
+                    <span>Transparence financière et gouvernance responsable</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 text-brand-500">✔</span>
+                    <span>Action locale avec résultats mesurables</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 text-brand-500">✔</span>
+                    <span>Engagement communautaire renforcé</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div class="rounded-[32px] bg-slate-900/80 p-8 shadow-2xl shadow-slate-900/20">
+                  <h3 class="text-2xl font-bold text-white">7M+ USD</h3>
+                  <p class="mt-2 text-slate-400 text-sm">Impacte mobilisée pour les communautés</p>
+                </div>
+                <div class="rounded-[32px] bg-slate-900/80 p-8 shadow-2xl shadow-slate-900/20">
+                  <h3 class="text-2xl font-bold text-white">50K+</h3>
+                  <p class="mt-2 text-slate-400 text-sm">Bénéficiaires directs annuels</p>
+                </div>
+                <div class="rounded-[32px] bg-slate-900/80 p-8 shadow-2xl shadow-slate-900/20">
+                  <h3 class="text-2xl font-bold text-white">5 Ans</h3>
+                  <p class="mt-2 text-slate-400 text-sm">D'engagement continu en RDC</p>
+                </div>
+                <div class="rounded-[32px] bg-slate-900/80 p-8 shadow-2xl shadow-slate-900/20">
+                  <h3 class="text-2xl font-bold text-white">24/7</h3>
+                  <p class="mt-2 text-slate-400 text-sm">Suivi et rapportage des projets</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="bg-slate-950 text-slate-400">
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-3 border-t border-slate-900">
+          <div>
+            <p class="text-brand-500 font-semibold uppercase tracking-[0.3em] mb-4">ONE DAY ASBL</p>
+            <p class="text-sm">Plateforme de collecte de fonds pour le développement durable en RDC.</p>
+            <p class="mt-4 text-slate-500 text-sm">© 2026 ONE DAY ASBL. Tous droits réservés.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Navigation Rapide</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#home" class="hover:text-white transition">Accueil</a></li>
+              <li><a href="#campaigns" class="hover:text-white transition">Campagnes</a></li>
+              <li><a href="#actions" class="hover:text-white transition">Domaines d'Action</a></li>
+              <li><a href="#about" class="hover:text-white transition">À Propos</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Coordonnées</h3>
+            <p class="text-sm">📍 Kinshasa, RDC</p>
+            <p class="mt-2 text-sm">✉️ info@onedayasbl.org</p>
+            <p class="mt-2 text-sm">📞 +243 XXXXXXXXX</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- DONATION MODAL -->
+    <div id="donationModal" class="hidden fixed inset-0 z-[100] overflow-y-auto modal-backdrop">
+      <div class="flex min-h-screen items-center justify-center px-4 py-8">
+        <div class="animate-slideIn w-full max-w-2xl rounded-[32px] bg-white shadow-2xl shadow-black/30">
+          <!-- Modal Header -->
+          <div class="border-b border-slate-200 px-6 py-6 sm:px-8">
+            <div class="flex items-center justify-between">
+              <h2 class="text-2xl font-bold text-slate-900">Faire un don à ONE DAY ASBL</h2>
+              <button id="closeModal" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
+                ✕
+              </button>
+            </div>
+            <p class="mt-2 text-slate-600">Choisissez votre méthode de paiement et soutenez nos projets d'impact.</p>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="px-6 py-8 sm:px-8">
+            <!-- Payment Methods Tab -->
+            <div class="space-y-6">
+              <!-- Mobile Money Section -->
+              <div>
+                <h3 class="text-lg font-semibold text-slate-900 mb-4">Moyens de Paiement Mobiles</h3>
+                <div class="grid gap-4 md:grid-cols-2">
+                  <!-- M-Pesa -->
+                  <button class="paymentMethod group rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-white p-6 text-left transition hover:border-green-400 hover:shadow-lg" data-method="mpesa">
+                    <div class="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+                      <span class="text-2xl font-bold text-red-600">M</span>
+                    </div>
+                    <h4 class="font-semibold text-slate-900">M-Pesa</h4>
+                    <p class="mt-2 text-sm text-slate-600">Paiement rapide via Vodacom</p>
+                    <p class="mt-1 text-xs text-slate-500">Code: *165#</p>
+                  </button>
+
+                  <!-- Orange Money -->
+                  <button class="paymentMethod group rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-50 to-white p-6 text-left transition hover:border-orange-400 hover:shadow-lg" data-method="orange">
+                    <div class="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
+                      <span class="text-2xl font-bold text-orange-600">O</span>
+                    </div>
+                    <h4 class="font-semibold text-slate-900">Orange Money</h4>
+                    <p class="mt-2 text-sm text-slate-600">Paiement par Orange</p>
+                    <p class="mt-1 text-xs text-slate-500">Code: #133#</p>
+                  </button>
+
+                  <!-- Airtel Money -->
+                  <button class="paymentMethod group rounded-2xl border border-red-200 bg-gradient-to-br from-red-50 to-white p-6 text-left transition hover:border-red-400 hover:shadow-lg" data-method="airtel">
+                    <div class="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+                      <span class="text-2xl font-bold text-red-600">A</span>
+                    </div>
+                    <h4 class="font-semibold text-slate-900">Airtel Money</h4>
+                    <p class="mt-2 text-sm text-slate-600">Paiement par Airtel</p>
+                    <p class="mt-1 text-xs text-slate-500">Code: *147#</p>
+                  </button>
+
+                  <!-- Visa/Mastercard -->
+                  <button class="paymentMethod group rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-6 text-left transition hover:border-blue-400 hover:shadow-lg" data-method="card">
+                    <div class="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+                      <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h10M7 20h10M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" />
+                      </svg>
+                    </div>
+                    <h4 class="font-semibold text-slate-900">Visa/Mastercard</h4>
+                    <p class="mt-2 text-sm text-slate-600">Carte bancaire internationale</p>
+                    <p class="mt-1 text-xs text-slate-500">Sécurisé SSL</p>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Bank Transfer Section -->
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                <h3 class="text-lg font-semibold text-slate-900 mb-4">Virement Bancaire</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex items-start gap-3">
+                    <span class="text-brand-600 font-semibold">Bénéficiaire :</span>
+                    <span class="text-slate-700 font-medium">Christian Kabamba Ebondo</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <span class="text-brand-600 font-semibold">Banque :</span>
+                    <span class="text-slate-700 font-medium">Trust Merchant Bank S.A (TMB)</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <span class="text-brand-600 font-semibold">IBAN :</span>
+                    <span class="text-slate-700 font-mono font-medium">BE34 6505 6439 1190</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <span class="text-brand-600 font-semibold">Compte :</span>
+                    <span class="text-slate-700 font-mono font-medium">00017-11020-7305157000-03</span>
+                  </div>
+                  <button class="mt-3 w-full rounded-lg bg-brand-600 py-2 text-white font-semibold hover:bg-brand-700 transition text-sm" onclick="this.textContent = 'Copié !'; setTimeout(() => this.textContent = 'Copier les coordonnées', 2000)">
+                    Copier les coordonnées
+                  </button>
+                </div>
+              </div>
+
+              <!-- Important Notes -->
+              <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6">
+                <h4 class="font-semibold text-amber-900 mb-3">⚠️ Important</h4>
+                <ul class="space-y-2 text-sm text-amber-900">
+                  <li class="flex gap-2">
+                    <span>•</span>
+                    <span>Les dons sont entièrement déductibles des impôts</span>
+                  </li>
+                  <li class="flex gap-2">
+                    <span>•</span>
+                    <span>Une facture de don sera envoyée à votre email</span>
+                  </li>
+                  <li class="flex gap-2">
+                    <span>•</span>
+                    <span>Tous les fonds vont directement aux projets sur le terrain</span>
+                  </li>
+                  <li class="flex gap-2">
+                    <span>•</span>
+                    <span>Transparence garantie avec rapportage trimestriel</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="border-t border-slate-200 px-6 py-4 sm:px-8 sm:py-6 flex gap-3">
+            <button id="closeModalButton" class="flex-1 rounded-lg border border-slate-300 py-3 font-semibold text-slate-700 hover:bg-slate-100 transition">
+              Fermer
+            </button>
+            <button class="flex-1 rounded-lg bg-gradient-to-r from-green-600 to-green-700 py-3 font-semibold text-white shadow-lg hover:shadow-xl transition">
+              Confirmer le Don
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+      // ============ SLIDER CONTROL ============
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      let activeSlide = 0;
+
+      function showSlide(index) {
+        slides.forEach((slide, idx) => {
+          if (idx === index) {
+            slide.classList.remove('opacity-0');
+            slide.classList.add('opacity-100');
+          } else {
+            slide.classList.remove('opacity-100');
+            slide.classList.add('opacity-0');
+          }
+        });
+        
+        dots.forEach((dot, idx) => {
+          if (idx === index) {
+            dot.classList.add('active');
+            dot.style.opacity = '1';
+          } else {
+            dot.classList.remove('active');
+            dot.style.opacity = '0.5';
+          }
+        });
+      }
+
+      function nextSlide() {
+        activeSlide = (activeSlide + 1) % slides.length;
+        showSlide(activeSlide);
+      }
+
+      function prevSlide() {
+        activeSlide = (activeSlide - 1 + slides.length) % slides.length;
+        showSlide(activeSlide);
+      }
+
+      document.getElementById('nextSlide').addEventListener('click', nextSlide);
+      document.getElementById('prevSlide').addEventListener('click', prevSlide);
+      
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          activeSlide = idx;
+          showSlide(activeSlide);
+        });
+      });
+
+      // Auto-advance slider every 5 seconds
+      setInterval(nextSlide, 5000);
+
+      // ============ MODAL CONTROL ============
+      const modal = document.getElementById('donationModal');
+      const openButtons = [
+        document.getElementById('openDonationModal'),
+        document.getElementById('heroOpenDonation'),
+        document.getElementById('mobileOpenDonation'),
+        ...document.querySelectorAll('.openDonation')
+      ];
+      const closeButtons = [
+        document.getElementById('closeModal'),
+        document.getElementById('closeModalButton')
+      ];
+
+      openButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          modal.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        });
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      // ============ MOBILE MENU ============
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    </script>
+  </body>
+</html>
